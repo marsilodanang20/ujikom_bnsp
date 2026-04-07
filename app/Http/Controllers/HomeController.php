@@ -25,6 +25,6 @@ class HomeController extends Controller
         $totalPendaftaran = Pendaftaran::count();
         $totalAktif = Pendaftaran::where('status', 'Aktif')->count();
 
-        return view('home', compact('peserta', 'search', 'totalPeserta', 'totalJurusan', 'totalPendaftaran', 'totalAktif'));
+        return view('dashboard', compact('peserta', 'search', 'totalPeserta', 'totalJurusan', 'totalPendaftaran', 'totalAktif'));
     }
 }

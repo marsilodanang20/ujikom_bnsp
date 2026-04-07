@@ -837,18 +837,32 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
-            <a href="{{ route('home') }}" class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}" id="nav-home">
-                <i class="fas fa-home"></i> Home
-            </a>
-            <a href="{{ route('peserta.index') }}" class="nav-item {{ request()->routeIs('peserta.*') ? 'active' : '' }}" id="nav-peserta">
-                <i class="fas fa-users"></i> Data Peserta
-            </a>
-            <a href="{{ route('jurusan.index') }}" class="nav-item {{ request()->routeIs('jurusan.*') ? 'active' : '' }}" id="nav-jurusan">
-                <i class="fas fa-book-open"></i> Data Jurusan
-            </a>
+            @if(auth()->check() && auth()->user()->role === 'admin')
+                <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}" id="nav-home">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="{{ route('peserta.index') }}" class="nav-item {{ request()->routeIs('peserta.*') ? 'active' : '' }}" id="nav-peserta">
+                    <i class="fas fa-users"></i> Data Peserta
+                </a>
+                <a href="{{ route('jurusan.index') }}" class="nav-item {{ request()->routeIs('jurusan.*') ? 'active' : '' }}" id="nav-jurusan">
+                    <i class="fas fa-book-open"></i> Data Jurusan
+                </a>
+            @endif
             <a href="{{ route('pendaftaran.index') }}" class="nav-item {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}" id="nav-pendaftaran">
                 <i class="fas fa-file-signature"></i> Pendaftaran
             </a>
+
+            @if(auth()->check())
+            <div style="margin-top:20px; border-top:1px solid #E2E8F0; padding-top:10px;">
+                <div class="nav-label" style="font-size:0.6rem;">{{ auth()->user()->name }} ({{ auth()->user()->role }})</div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="nav-item" style="width: 100%; border: none; background: transparent; text-align: left; cursor:pointer;">
+                        <i class="fas fa-sign-out-alt text-danger" style="color: #DC2626;"></i> <span style="color: #DC2626;">Logout</span>
+                    </button>
+                </form>
+            </div>
+            @endif
         </nav>
         <div class="sidebar-footer">
             &copy; {{ date('Y') }} MARSILO DANANG W

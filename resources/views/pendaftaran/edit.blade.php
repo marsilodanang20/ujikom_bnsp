@@ -25,7 +25,7 @@
             <select name="id_peserta" id="id_peserta" class="form-control">
                 <option value="">-- Pilih Peserta --</option>
                 @foreach($peserta as $p)
-                    <option value="{{ $p->id_peserta }}" {{ old('id_peserta', $pendaftaran->id_peserta) == $p->id_peserta ? 'selected' : '' }}>
+                    <option value="{{ $p->id_peserta }}" data-jurusan="{{ $p->kd_jurusan }}" {{ old('id_peserta', $pendaftaran->id_peserta) == $p->id_peserta ? 'selected' : '' }}>
                         {{ $p->id_peserta }} - {{ $p->nm_peserta }} ({{ $p->jekel }})
                     </option>
                 @endforeach
@@ -34,15 +34,17 @@
         </div>
 
         <div class="form-group">
-            <label for="kd_jurusan">Jurusan <span class="required">*</span></label>
-            <select name="kd_jurusan" id="kd_jurusan" class="form-control">
-                <option value="">-- Pilih Jurusan --</option>
+            <label for="kd_jurusan_select">Jurusan <span class="required">*</span></label>
+            <input type="hidden" name="kd_jurusan" id="kd_jurusan_hidden" value="{{ old('kd_jurusan', $pendaftaran->kd_jurusan) }}">
+            <select id="kd_jurusan_select" class="form-control" disabled style="background-color: #f1f5f9; cursor: not-allowed;">
+                <option value="">-- Pilih Jurusan Berdasarkan Peserta --</option>
                 @foreach($jurusan as $j)
                     <option value="{{ $j->kd_jurusan }}" {{ old('kd_jurusan', $pendaftaran->kd_jurusan) == $j->kd_jurusan ? 'selected' : '' }}>
                         {{ $j->kd_jurusan }} - {{ $j->nm_jurusan }} ({{ $j->durasi }} | Rp {{ number_format($j->biaya, 0, ',', '.') }})
                     </option>
                 @endforeach
             </select>
+            <small class="text-muted" style="font-size: 0.75rem; color: #64748B; margin-top: 4px; display: block;">* Jurusan otomatis mengikuti data peserta dan tidak dapat diubah.</small>
             @error('kd_jurusan') <div class="form-error">{{ $message }}</div> @enderror
         </div>
 
@@ -70,4 +72,33 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pesertaSelect = document.getElementById('id_peserta');
+        const jurusanSelect = document.getElementById('kd_jurusan_select');
+        const jurusanHidden = document.getElementById('kd_jurusan_hidden');
+
+        function updateJurusan() {
+            const selectedOption = pesertaSelect.options[pesertaSelect.selectedIndex];
+            if (selectedOption && selectedOption.dataset.jurusan) {
+                const jurusan = selectedOption.dataset.jurusan;
+                jurusanSelect.value = jurusan;
+                jurusanHidden.value = jurusan;
+            } else {
+                jurusanSelect.value = '';
+                jurusanHidden.value = '';
+            }
+        }
+
+        pesertaSelect.addEventListener('change', updateJurusan);
+        
+        // Initial run
+        if(pesertaSelect.value) {
+            updateJurusan();
+        }
+    });
+</script>
 @endsection

@@ -36,7 +36,7 @@
     <div class="table-container animate-in">
         <div class="table-header">
             <h3><i class="fas fa-list"></i> Data Seluruh Peserta Kursus</h3>
-            <form action="{{ route('home') }}" method="GET" class="search-box" id="search-form">
+            <form action="{{ route('dashboard') }}" method="GET" class="search-box" id="search-form">
                 <input type="text" name="search" placeholder="Cari nama peserta..." value="{{ $search }}" id="search-input">
                 <button type="submit" id="search-btn"><i class="fas fa-search"></i></button>
             </form>
@@ -48,7 +48,7 @@
                 <span style="font-size: 0.85rem; color: var(--text-secondary);">
                     Hasil pencarian untuk: <strong style="color: var(--accent-primary);">"{{ $search }}"</strong>
                     — {{ $peserta->total() }} data ditemukan
-                    <a href="{{ route('home') }}"
+                    <a href="{{ route('dashboard') }}"
                         style="color: var(--danger); margin-left: 8px; text-decoration: none; font-size: 0.8rem;">
                         <i class="fas fa-times"></i> Reset
                     </a>
