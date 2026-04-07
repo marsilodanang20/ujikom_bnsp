@@ -27,4 +27,12 @@ class HomeController extends Controller
 
         return view('dashboard', compact('peserta', 'search', 'totalPeserta', 'totalJurusan', 'totalPendaftaran', 'totalAktif'));
     }
+    public function exportPdf()
+    {
+        $peserta = Peserta::with('jurusan')->orderBy('id_peserta', 'desc')->get();
+        // Menggunakan dompdf untuk generate
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('reports.peserta_pdf', compact('peserta'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('Laporan_Data_Peserta.pdf');
+    }
 }

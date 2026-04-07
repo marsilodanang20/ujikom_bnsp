@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistem Pendaftaran Kursus - Kelola data peserta, jurusan, dan pendaftaran kursus dengan mudah">
+    <meta name="description"
+        content="Sistem Pendaftaran Kursus - Kelola data peserta, jurusan, dan pendaftaran kursus dengan mudah">
     <title>@yield('title', 'Sistem Pendaftaran Kursus')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* ===== CSS RESET & VARIABLES ===== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --bg-primary: #FFFFFF;
@@ -256,10 +265,25 @@
             margin-bottom: 16px;
         }
 
-        .stat-card .stat-icon.purple { background: #EFF6FF; color: var(--accent-primary); }
-        .stat-card .stat-icon.green { background: var(--success-bg); color: var(--success); }
-        .stat-card .stat-icon.blue { background: var(--info-bg); color: var(--info); }
-        .stat-card .stat-icon.yellow { background: var(--warning-bg); color: var(--warning); }
+        .stat-card .stat-icon.purple {
+            background: #EFF6FF;
+            color: var(--accent-primary);
+        }
+
+        .stat-card .stat-icon.green {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .stat-card .stat-icon.blue {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .stat-card .stat-icon.yellow {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
 
         .stat-card .stat-value {
             font-size: 1.75rem;
@@ -710,18 +734,39 @@
 
         /* ===== ANIMATIONS ===== */
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .animate-in {
@@ -815,14 +860,32 @@
         }
 
         /* ===== HELPER UTILITIES ===== */
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .fw-600 { font-weight: 600; }
-        .text-white { color: var(--text-primary); }
-        .mt-2 { margin-top: 8px; }
-        .mb-0 { margin-bottom: 0; }
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .fw-600 {
+            font-weight: 600;
+        }
+
+        .text-white {
+            color: var(--text-primary);
+        }
+
+        .mt-2 {
+            margin-top: 8px;
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
     </style>
 </head>
+
 <body>
     <!-- Mobile Toggle -->
     <button class="mobile-toggle" onclick="toggleSidebar()" id="mobile-toggle-btn">
@@ -838,30 +901,37 @@
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
             @if(auth()->check() && auth()->user()->role === 'admin')
-                <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}" id="nav-home">
-                    <i class="fas fa-home"></i> Dashboard
+                <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                    id="nav-home">
+                    <i class="fas fa-home"></i> Home
                 </a>
-                <a href="{{ route('peserta.index') }}" class="nav-item {{ request()->routeIs('peserta.*') ? 'active' : '' }}" id="nav-peserta">
+                <a href="{{ route('peserta.index') }}"
+                    class="nav-item {{ request()->routeIs('peserta.*') ? 'active' : '' }}" id="nav-peserta">
                     <i class="fas fa-users"></i> Data Peserta
                 </a>
-                <a href="{{ route('jurusan.index') }}" class="nav-item {{ request()->routeIs('jurusan.*') ? 'active' : '' }}" id="nav-jurusan">
+                <a href="{{ route('jurusan.index') }}"
+                    class="nav-item {{ request()->routeIs('jurusan.*') ? 'active' : '' }}" id="nav-jurusan">
                     <i class="fas fa-book-open"></i> Data Jurusan
                 </a>
             @endif
-            <a href="{{ route('pendaftaran.index') }}" class="nav-item {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}" id="nav-pendaftaran">
+            <a href="{{ route('pendaftaran.index') }}"
+                class="nav-item {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}" id="nav-pendaftaran">
                 <i class="fas fa-file-signature"></i> Pendaftaran
             </a>
 
             @if(auth()->check())
-            <div style="margin-top:20px; border-top:1px solid #E2E8F0; padding-top:10px;">
-                <div class="nav-label" style="font-size:0.6rem;">{{ auth()->user()->name }} ({{ auth()->user()->role }})</div>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="nav-item" style="width: 100%; border: none; background: transparent; text-align: left; cursor:pointer;">
-                        <i class="fas fa-sign-out-alt text-danger" style="color: #DC2626;"></i> <span style="color: #DC2626;">Logout</span>
-                    </button>
-                </form>
-            </div>
+                <div style="margin-top:20px; border-top:1px solid #E2E8F0; padding-top:10px;">
+                    <div class="nav-label" style="font-size:0.6rem;">{{ auth()->user()->name }} ({{ auth()->user()->role }})
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="nav-item"
+                            style="width: 100%; border: none; background: transparent; text-align: left; cursor:pointer;">
+                            <i class="fas fa-sign-out-alt text-danger" style="color: #DC2626;"></i> <span
+                                style="color: #DC2626;">Logout</span>
+                        </button>
+                    </form>
+                </div>
             @endif
         </nav>
         <div class="sidebar-footer">
@@ -939,7 +1009,7 @@
         }
 
         // Close modal on overlay click
-        document.getElementById('deleteModal').addEventListener('click', function(e) {
+        document.getElementById('deleteModal').addEventListener('click', function (e) {
             if (e.target === this) closeDeleteModal();
         });
 
@@ -951,4 +1021,5 @@
 
     @yield('scripts')
 </body>
+
 </html>

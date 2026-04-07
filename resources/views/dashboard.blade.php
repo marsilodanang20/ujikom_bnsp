@@ -36,10 +36,15 @@
     <div class="table-container animate-in">
         <div class="table-header">
             <h3><i class="fas fa-list"></i> Data Seluruh Peserta Kursus</h3>
-            <form action="{{ route('dashboard') }}" method="GET" class="search-box" id="search-form">
-                <input type="text" name="search" placeholder="Cari nama peserta..." value="{{ $search }}" id="search-input">
-                <button type="submit" id="search-btn"><i class="fas fa-search"></i></button>
-            </form>
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <a href="{{ route('dashboard.exportPdf') }}" target="_blank" class="btn btn-danger">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </a>
+                <form action="{{ route('dashboard') }}" method="GET" class="search-box" id="search-form">
+                    <input type="text" name="search" placeholder="Cari nama peserta..." value="{{ $search }}" id="search-input">
+                    <button type="submit" id="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
         </div>
 
         @if($search)

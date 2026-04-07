@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     // Admin Routes (Admin memilliki full access)
     Route::middleware('role:admin')->group(function () {
         Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('dashboard/export-pdf', [HomeController::class, 'exportPdf'])->name('dashboard.exportPdf');
         Route::resource('jurusan', JurusanController::class)->except(['show']);
         Route::resource('peserta', PesertaController::class)->except(['show']);
         // Walaupun admin punya full access, pendaftaran tetap diakses melalui PendaftaranController
